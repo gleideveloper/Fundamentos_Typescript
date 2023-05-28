@@ -16,9 +16,7 @@ function validarTamanho(minLength: number) {
 
     const setter = function (newValue: string) {
       if (newValue.length < minLength) {
-        throw new Error(
-          `O tamanho mínimo de caracteres para "${propertyKey}" é ${minLength}.`
-        );
+        throw new Error(`O tamanho mínimo de caracteres para "${propertyKey}" é ${minLength}.`);
       }
 
       value = newValue;
