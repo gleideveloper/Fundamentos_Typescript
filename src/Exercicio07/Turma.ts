@@ -7,16 +7,29 @@ export enum Turno {
 }
 
 function validarTamanho(minLength: number) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    const originalSetter = descriptor.set;
-    descriptor.set = function (value: string) {
-      if (value.length < minLength) {
-        throw new Error(`O tamanho mínimo da propriedade "${propertyKey}" é ${minLength}.`);
-      }
-      if (originalSetter) {
-        originalSetter.call(this, value);
-      }
+  return function (target: any, propertyKey: string) {
+    let value = target[propertyKey];
+
+    const getter = function () {
+      return value;
     };
+
+    const setter = function (newValue: string) {
+      if (newValue.length < minLength) {
+        throw new Error(
+          `O tamanho mínimo de caracteres para "${propertyKey}" é ${minLength}.`
+        );
+      }
+
+      value = newValue;
+    };
+
+    Object.defineProperty(target, propertyKey, {
+      get: getter,
+      set: setter,
+      enumerable: true,
+      configurable: true,
+    });
   };
 }
 
@@ -39,7 +52,7 @@ export class Turma {
     return this._descricao;
   }
 
-  // @validarTamanho(10)
+  @validarTamanho(10)
   set descricao(value: string) {
     this._descricao = value;
   }

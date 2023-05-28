@@ -19,7 +19,6 @@ export class GerenciadorTurmas {
     }
   }
 
-  // alterarTurma(id: number, descricao: string, turno: Turno, curso: Curso): void {
   alterarTurma(id: number, turma: Turma): void {
     var hasTurma = this.turmas.find((turma) => turma.id === id);
     if (hasTurma) {
@@ -32,7 +31,9 @@ export class GerenciadorTurmas {
   buscarTurma(id: number) {
     const turma = this.turmas.find((turma) => turma.id === id);
     if (turma) {
-      console.log(`Turma encontrada: ${turma.id} - Descrição: ${turma.descricao}`);
+      console.log(
+        `Turma encontrada: ${turma.id} - Descrição: ${turma.descricao}`
+      );
     } else {
       console.log(`Turma com o ID ${id} não encontrada.`);
     }

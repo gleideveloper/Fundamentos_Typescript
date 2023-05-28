@@ -30,7 +30,7 @@ console.log("\nExcluindo a Turma B:");
 gerenciador.excluirTurma(turma2.id);
 
 console.log("\nAlterando informações da Turma A:");
-turma1.descricao = "Turma F";
+turma1.descricao = "Turma Falso vzxfvdvs";
 turma1.turno = Turno.TARDE;
 turma1.curso.descricao = "Análise de Sistemas";
 gerenciador.alterarTurma(turma1.id, turma1);
