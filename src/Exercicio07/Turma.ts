@@ -6,26 +6,49 @@ export enum Turno {
   NOITE = "Noite",
 }
 
-function validarTamanho(minLength: number) {
-  return function (target: any, propertyKey: string) {
-    let value = target[propertyKey];
-    const getter = () => value;
+// function validarTamanho(minLength: number) {
+//   return function (target: any, propertyKey: string) {
+//     let value = target[propertyKey];
+//     const getter = () => value;
 
-    const setter = function (newValue: string) {
-      if (newValue.length < minLength) {
+//     const setter = function (newValue: string) {
+//       if (newValue.length < minLength) {
+//         throw new Error(
+//           `O tamanho mínimo de caracteres para ${propertyKey} é ${minLength} => (${newValue} = ${newValue.length}).`
+//         );
+//       }
+//       value = newValue;
+//     };
+
+//     Object.defineProperty(target, propertyKey, {
+//       get: getter,
+//       set: setter,
+//       // enumerable: true,
+//       // configurable: true,
+//     });
+//   };
+// }
+
+function validarTamanho(minLength: number) {
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    const originalSetter = descriptor.set; // Salva o setter original
+
+    if (!originalSetter) {
+      throw new Error(`O método set para a propriedade ${propertyKey} não está definido.`);
+    }
+
+    descriptor.set = function (value: string) {
+      if (value.length < minLength) {
         throw new Error(
-          `O tamanho mínimo de caracteres para ${propertyKey} é ${minLength} e não ${newValue} - ${newValue.length}.`
+          `O tamanho mínimo de caracteres para ${propertyKey} é ${minLength} => (${value} = ${value.length}).`
         );
       }
-      value = newValue;
+
+      // Chama o setter original
+      originalSetter.call(this, value);
     };
 
-    Object.defineProperty(target, propertyKey, {
-      get: getter,
-      set: setter,
-      // enumerable: true,
-      // configurable: true,
-    });
+    return descriptor;
   };
 }
 
@@ -43,6 +66,7 @@ export class Turma {
     this._turno = turno;
     this._curso = curso;
   }
+
   get descricao(): string {
     return this._descricao;
   }
