@@ -6,29 +6,6 @@ export enum Turno {
   NOITE = "Noite",
 }
 
-// function validarTamanho(minLength: number) {
-//   return function (target: any, propertyKey: string) {
-//     let value = target[propertyKey];
-//     const getter = () => value;
-
-//     const setter = function (newValue: string) {
-//       if (newValue.length < minLength) {
-//         throw new Error(
-//           `O tamanho mínimo de caracteres para ${propertyKey} é ${minLength} => (${newValue} = ${newValue.length}).`
-//         );
-//       }
-//       value = newValue;
-//     };
-
-//     Object.defineProperty(target, propertyKey, {
-//       get: getter,
-//       set: setter,
-//       // enumerable: true,
-//       // configurable: true,
-//     });
-//   };
-// }
-
 function validarTamanho(minLength: number) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalSetter = descriptor.set; // Salva o setter original
