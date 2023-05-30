@@ -12,10 +12,10 @@ const curso3 = new Curso("Engenharia Agrícola", Area.AGRARIAS);
 const curso4 = new Curso("Medicina", Area.BIOLOGICAS);
 
 //Instanciando as turmas
-const turma1 = new Turma("Turma A", Turno.MANHA, curso1);
-const turma2 = new Turma("Turma B", Turno.TARDE, curso2);
-const turma3 = new Turma("Turma C", Turno.NOITE, curso3);
-const turma4 = new Turma("Turma D", Turno.NOITE, curso4);
+const turma1 = new Turma("Turma Amarelo", Turno.MANHA, curso1);
+const turma2 = new Turma("Turma Laranja", Turno.TARDE, curso2);
+const turma3 = new Turma("Turma Vermelho", Turno.NOITE, curso3);
+const turma4 = new Turma("Turma Verde", Turno.NOITE, curso4);
 
 //Add Turmas
 gerenciador.adicionarTurma(turma1);
@@ -30,7 +30,7 @@ console.log("\nExcluindo a Turma B:");
 gerenciador.excluirTurma(turma2.id);
 
 console.log("\nAlterando informações da Turma A:");
-turma1.descricao = "Turma Falso vzxfvdvs";
+turma1.descricao = "Turma Rosa";
 turma1.turno = Turno.TARDE;
 turma1.curso.descricao = "Análise de Sistemas";
 gerenciador.alterarTurma(turma1.id, turma1);

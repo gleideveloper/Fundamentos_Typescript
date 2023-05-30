@@ -9,24 +9,22 @@ export enum Turno {
 function validarTamanho(minLength: number) {
   return function (target: any, propertyKey: string) {
     let value = target[propertyKey];
-
-    const getter = function () {
-      return value;
-    };
+    const getter = () => value;
 
     const setter = function (newValue: string) {
       if (newValue.length < minLength) {
-        throw new Error(`O tamanho mínimo de caracteres para "${propertyKey}" é ${minLength}.`);
+        throw new Error(
+          `O tamanho mínimo de caracteres para ${propertyKey} é ${minLength} e não ${newValue} - ${newValue.length}.`
+        );
       }
-
       value = newValue;
     };
 
     Object.defineProperty(target, propertyKey, {
       get: getter,
       set: setter,
-      enumerable: true,
-      configurable: true,
+      // enumerable: true,
+      // configurable: true,
     });
   };
 }
@@ -45,7 +43,6 @@ export class Turma {
     this._turno = turno;
     this._curso = curso;
   }
-
   get descricao(): string {
     return this._descricao;
   }
